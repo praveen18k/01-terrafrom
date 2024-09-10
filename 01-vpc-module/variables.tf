@@ -11,18 +11,9 @@ variable "enable_dns_support" {
 }
 
 variable "public_subnet1" {
-    type = map(string)
-    default = {
-        "subnet1" = "10.0.1.0/24"
-        "subnet2" = "10.0.2.0/24"
+  default = ["10.0.1.0/24", "10.0.2.0/24"]
 }
 
-variable "private_subnet1" {
-    type = map(string)
-    default = {
-        "subnet1" = "10.0.3.0/24"
-        "subnet2" = "10.0.4.0/24"
-}
 variable "private_subnet1" {
   default = ["10.0.3.0/24", "10.0.4.0/24"]
 }

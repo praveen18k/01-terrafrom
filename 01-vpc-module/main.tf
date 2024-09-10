@@ -40,6 +40,6 @@ resource "aws_route_table" "example" {
   }
 
   tags = {
-    Name = "example"
+    Name = "public-route"
   }
 }
