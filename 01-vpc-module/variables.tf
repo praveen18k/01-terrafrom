@@ -11,5 +11,11 @@ variable "private_subnet1" {
 }
 
 variable "vpc_tags" {
-  default = "my-vpc-module"
+  type = map(any)
+  default = {
+    name    = "vpc"
+    project = "mycareer"
+  }
 }
+
+      
