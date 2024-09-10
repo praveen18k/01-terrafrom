@@ -60,7 +60,7 @@ resource "aws_nat_gateway" "nat_gateway" {
 
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
-  depends_on = [aws_internet_gateway.example]
+  depends_on = [aws_internet_gateway.igw]
 }
 ##This will attach to NAT gateway
 resource "aws_route_table" "example" {
