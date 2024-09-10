@@ -75,3 +75,17 @@ resource "aws_route_table" "private_route" {
     Name = "private-route"
   }
 }
+
+#route table associations
+resource "aws_route_table_association" "public_route" {
+  count          = length(var.public_subnet1)
+  subnet_id      = element(aws_subnet.public_subnet1[*].id, count.index)
+  route_table_id = aws_route_table.public_route.id
+}
+
+resource "aws_route_table_association" "private_route" {
+  count          = length(var.private_subnet1)
+  subnet_id      = element(aws_subnet.private_subnet1[*].id, count.index)
+  route_table_id = aws_route_table.private_route.id
+
+}
