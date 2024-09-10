@@ -31,19 +31,15 @@ resource "aws_subnet" "private_subnet1" {
   tags = var.vpc_tags
 }
 
-#Route table resource
-resource "aws_route_table" "public_route_table" {
+resource "aws_route_table" "example" {
   vpc_id = aws_vpc.main.id
 
-  tags = {
-    Name = "public-route"
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
   }
-}
-#Route for each public subnet CIDR block
-resource "aws_route" "public_route" {
-  for_each = var.public_subnet1 #iterate over each CIDR block
 
-  route_table_id         = aws_route_table.public_route_table.id
-  destination_cidr_block = each.value # use the current CIDR block from the list
-  gateway_id             = aws_internet_gateway.igw.id
+  tags = {
+    Name = "example"
+  }
 }
