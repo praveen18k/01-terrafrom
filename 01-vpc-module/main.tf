@@ -15,18 +15,18 @@ resource "aws_internet_gateway" "igw" {
 }
 
 
-resource "aws_subnet" "public" {
+resource "aws_subnet" "public_subnet1" {
   vpc_id     = aws_vpc.main.id
-  cidr_block = ["10.0.1.0/24", "10.0.2.0/24"]
+  cidr_block = var.public_subnet1
 
   tags = {
     Name = "my-vpc-module"
   }
 }
 
-resource "aws_subnet" "private" {
+resource "aws_subnet" "private_subnet1" {
   vpc_id     = aws_vpc.main.id
-  cidr_block = ["10.0.11.0/24", "10.0.22.0/24"]
+  cidr_block = var.private_subnet1
 
   tags = {
     Name = "my-vpc-module"
@@ -37,14 +37,14 @@ resource "aws_eip" "lb_eip" {
   domain = "vpc"
 }
 
-resource "aws_nat_gateway" "nat" {
+resource "aws_nat_gateway" "nat_gw" {
   allocation_id = aws_eip.lb_eip.id
-  subnet_id     = aws_subnet.public.id
+  subnet_id     = aws_subnet.public_subnet1.id
 
   tags = {
     Name = "gw NAT"
   }
 
-  depends_on = [aws_internet_gateway.example]
+  depends_on = [aws_internet_gateway.igw]
 }
 
