@@ -11,7 +11,19 @@ variable "enable_dns_support" {
 }
 
 variable "public_subnet1" {
-  default = ["10.0.1.0/24", "10.0.2.0/24"]
+  default = list
+  validation {
+    condition     = length(var.public_subnet1) == 2
+    error_message = "please provide 2 public subnet CIDR"
+  }
+}
+
+variable "private_subnet1" {
+  default = list
+  validation {
+    condition     = length(var.private_subnet1) == 2
+    error_message = "please provide 2 private subnet CIDR"
+  }
 }
 
 variable "private_subnet1" {
